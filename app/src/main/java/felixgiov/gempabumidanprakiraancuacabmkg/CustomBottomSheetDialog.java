@@ -1,8 +1,11 @@
 package felixgiov.gempabumidanprakiraancuacabmkg;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +24,7 @@ import com.bumptech.glide.request.target.Target;
 public class CustomBottomSheetDialog extends BottomSheetDialogFragment {
 
     String img;
+    Toolbar mActionBarToolbar;
 
     public static CustomBottomSheetDialog getInstance() {
         return new CustomBottomSheetDialog();
@@ -31,6 +35,11 @@ public class CustomBottomSheetDialog extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.layout_custom_bottom_sheet, container, false);
+
+        mActionBarToolbar = (Toolbar) view.findViewById(R.id.toolbar2);
+        mActionBarToolbar.setTitle("Peta BMKG");
+        mActionBarToolbar.setTitleTextColor(Color.WHITE);
+
         img = "www.namoraltv.com.br/assets/images/page-not-found.png";
         img = getArguments().getString("img");
 
@@ -56,4 +65,5 @@ public class CustomBottomSheetDialog extends BottomSheetDialogFragment {
 
         return view;
     }
+
 }

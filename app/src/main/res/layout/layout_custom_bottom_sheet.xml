@@ -4,6 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:theme="?attr/actionBarTheme"
+        android:minHeight="?attr/actionBarSize"
+        android:id="@+id/toolbar2">
+
+    </android.support.v7.widget.Toolbar>
+
     <ProgressBar
         android:id="@+id/progress"
         android:visibility="visible"
@@ -13,7 +23,6 @@
 
     <ImageView
         android:id="@+id/ic_image"
-        android:src="@drawable/intensity"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
