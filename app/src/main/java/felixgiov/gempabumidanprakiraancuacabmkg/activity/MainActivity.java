@@ -152,13 +152,23 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
 
-
-
-                        CustomBottomSheetDialog bottomSheetDialog = CustomBottomSheetDialog.getInstance();
-                        bottomSheetDialog.show(getSupportFragmentManager(), "Custom Bottom Sheet");
+                        newInstance(data.get(position).getImg());
+//                        CustomBottomSheetDialog bottomSheetDialog = CustomBottomSheetDialog.getInstance();
+//                        bottomSheetDialog.show(getSupportFragmentManager(), "Custom Bottom Sheet");
                     //    Toast.makeText(MainActivity.this, ""+data.get(position).getWilayah(), Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    public void newInstance(String img) {
+        CustomBottomSheetDialog bottomSheetDialog = CustomBottomSheetDialog.getInstance();
+
+        // Supply num input as an argument.
+        Bundle args = new Bundle();
+        args.putString("img", img);
+        bottomSheetDialog.setArguments(args);
+
+        bottomSheetDialog.show(getSupportFragmentManager(), "Custom Bottom Sheet");
     }
 
     /** Called when leaving the activity */

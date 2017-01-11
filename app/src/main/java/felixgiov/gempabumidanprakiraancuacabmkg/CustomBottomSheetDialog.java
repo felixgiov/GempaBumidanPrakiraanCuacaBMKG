@@ -19,6 +19,9 @@ import com.bumptech.glide.request.target.Target;
  */
 
 public class CustomBottomSheetDialog extends BottomSheetDialogFragment {
+
+    String img;
+
     public static CustomBottomSheetDialog getInstance() {
         return new CustomBottomSheetDialog();
     }
@@ -28,12 +31,14 @@ public class CustomBottomSheetDialog extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.layout_custom_bottom_sheet, container, false);
+        img = "www.namoraltv.com.br/assets/images/page-not-found.png";
+        img = getArguments().getString("img");
 
         ImageView imageView = (ImageView) view.findViewById(R.id.ic_image);
         final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress);
 
         Glide.with(this)
-                .load("https://www.wonderplugin.com/wp-content/plugins/wonderplugin-lightbox/images/demo-image0.jpg")
+                .load(img)
                 .listener(new RequestListener<String, GlideDrawable>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
