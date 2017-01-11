@@ -5,5 +5,7 @@ Aplikasi android untuk melihat gempa terkini di seluruh Indonesia menggunakan da
 Library yang digunakan : Retrofit, GSON, Glide, Firebase Ads.
 
 <p align="center">
-  <img src="https://github.com/felixgiov/Info-Gempa-Bumi-BMKG/blob/master/1.png" width="350"/>
+  <img src="https://github.com/felixgiov/Info-Gempa-Bumi-BMKG/blob/master/1.png" width="300"/>
+  <img src="https://github.com/felixgiov/Info-Gempa-Bumi-BMKG/blob/master/2.png" width="300"/>
+  <img src="https://github.com/felixgiov/Info-Gempa-Bumi-BMKG/blob/master/3.png" width="300"/>
 </p>
