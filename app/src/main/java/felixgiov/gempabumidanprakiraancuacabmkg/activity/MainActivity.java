@@ -17,6 +17,11 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import org.json.JSONArray;
 
 import java.util.List;
@@ -38,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private final static String API_KEY = "baf1270d5a9c8f3dcf4de5c11f4ca392";
     private ProgressBar mProgressBar;
+    private AdView mAdView;
     List<Datum> data;
 
     @Override
@@ -49,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
         final Handler h = new Handler();
-        final int delay = 10000; //milliseconds
+        final int delay = 8000; //milliseconds
 
         h.postDelayed(new Runnable(){
             public void run(){
@@ -63,6 +69,24 @@ public class MainActivity extends AppCompatActivity {
         }, delay);
 
         refreshRecyclerView();
+
+        // Initialize the Mobile Ads SDK.
+        MobileAds.initialize(this, "ca-app-pub-2029021861713537/7143027207");
+
+        // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
+        // values/strings.xml.
+        mAdView = (AdView) findViewById(R.id.ad_view);
+
+        // Create an ad request. Check your logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+
+        // Start loading the ad in the background.
+        mAdView.loadAd(adRequest);
+
     }
 
     @Override
@@ -71,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.refresh, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -112,10 +135,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Example> call, Response<Example> response) {
                 data = response.body().getData();
+                Toast.makeText(getApplicationContext(), "Refreshed.", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Number of responses received: " + data.size());
                 recyclerView.setAdapter(new GempaAdapter(data, R.layout.list_item_gempa, getApplicationContext()));
                 mProgressBar.setVisibility(View.GONE);
-                Toast.makeText(getApplicationContext(), "Refreshed.", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -137,4 +160,32 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    /** Called when leaving the activity */
+    @Override
+    public void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
+        super.onPause();
+    }
+
+    /** Called when returning to the activity */
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAdView != null) {
+            mAdView.resume();
+        }
+    }
+
+    /** Called before the activity is destroyed */
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
+    }
+
 }
